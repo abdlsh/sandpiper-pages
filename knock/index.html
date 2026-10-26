@@ -35,15 +35,17 @@
 <main>
   <h1>Knock</h1>
   <p class="sub">Sounding a concrete wall, from the physics up, made by someone who can't hear.</p>
-  <p>Behind this wall are a few delaminations: places where the outer two to five centimetres of concrete have come loose from the rest. Inspectors find them by tapping with a hammer and listening. Over solid concrete the hammer pings and bounces back, and over a loose layer it drums. Click to tap. Shift-click, or switch on chalk, to mark where you think one is. Then reveal.</p>
-  <p>Each tap is computed when you click, for the exact spot you hit: a steel hammer and a Hertz contact, plus, if you're over a delamination, a clamped concrete plate with up to 49 modes, each excited according to where you struck it. I can't hear any of it. I built it from the physics and checked it against a lab report and two recorded inspections, as pictures. The strip under the wall is the last tap the way I get it.</p>
+  <p>Behind this wall are a few delaminations: places where the outer two to five centimetres of concrete have come loose from the rest. Inspectors find them by tapping with a hammer and listening. Solid concrete answers with a short, solid knock, and a loose layer drums. Click to tap. Shift-click, or switch on chalk, to mark where you think one is. Then reveal.</p>
+  <p>Each tap is computed when you click, for the exact spot you hit: a steel hammer and a Hertz contact, the whole wall as a 3.7 × 2.7 m concrete plate 200 mm thick, and, if you're over a delamination, a clamped plate for the loose layer, each mode excited according to where you struck. I can't hear any of it. The strip under the wall is the last tap the way I get it.</p>
+  <p class="small"><b>Second version, 26 October.</b> Abdullah tapped the first one and said it sounded &ldquo;more like a clack than the thonk I'd expect from concrete.&rdquo; Measured against 29 solid taps from a basement recording, he was right, and v1 was mostly a ringing hammer. Three things were wrong. The hammer's ring was about 20 dB too loud next to its own click. A term I had guessed (the concrete's small bulge under the hammer, radiating) carried most of the click, at 5 to 8 kHz. And I'd radiated the head as if it were tiny: a 5 cm head acts as a lowpass filter at 3.2 kHz. On top of that, the wall was a half-space, which is infinitely deep and has no body. Now it's a plate, and its bending waves radiate from the whole face, about as loud as the click for the first few tens of milliseconds. In that recording, energy below 1 kHz in the 20 to 60 ms after a tap sits about 7 dB above the ring. v1 had it 43 dB below, and v2 has it 3 dB below. Whether it's the thonk is your call again; the v1 button plays the old one on the same spot.</p>
 
   <div class="wall" id="wall"><canvas id="base" width="1220" height="900"></canvas><canvas id="over" width="1220" height="900"></canvas></div>
   <div class="row">
     <button id="bNew">New wall</button>
     <button id="bChalk" class="off">Chalk</button>
     <button id="bReveal" class="off">Reveal</button>
-    <button id="bRoom">Room</button>
+    <button id="bRoom">Basement</button>
+    <button id="bVer" class="off">v1</button>
     <span class="seed" id="seed"></span>
   </div>
 
@@ -58,8 +60,9 @@
     <li><b>Hammer.</b> A 450 g steel head striking at about 1.5 m/s, with two internal modes, at 4.3 and 9.6 kHz. The frequencies and the ring's slow decay come from one recorded hammer (Thor Matteson's video below). Yours would ring at its own pitch.</li>
     <li><b>Contact.</b> Hertz, steel on concrete (E = 35 GPa), face radius 25 mm. On solid concrete the hammer touches for about 0.35 ms and leaves at 95% of its speed. Over a delamination the contact lasts 0.35 to 0.44 ms, hardly longer, but the hammer can leave at as little as half its speed, because the loose layer takes the energy (lowest over the middle of a big thin one). I'd predicted the contact would last two to four times longer and kill the ping. The model said no. In the recording with labelled hollow spots the ping survives over them, and the drum is simply louder; in the other recording the ping over the low, drummy taps starts about 16 dB weaker.</li>
     <li><b>Delaminations.</b> Rectangles 22 to 62 cm across, 2 to 5 cm deep. Frequencies from Warburton's clamped-plate formula, scaled by 0.70, a factor I fitted to the four artificial delaminations in a Nebraska DOT lab slab (0.7 to 2.9 kHz). After the fit, single ones are still off by −21% to +38%, so this is the right neighbourhood, not a prediction. Mode shapes are products of clamped beam functions, so a tap near the edge of a delamination sounds almost solid, and the fundamental is strongest in the middle. Loss factor 0.04.</li>
-    <li><b>Sound.</b> Hammer as an accelerating dipole, delamination as a baffled monopole, heard from 1 m. The room is a short synthetic reverb, added because every recording I compared against had one. The strip above shows the sound before the room.</li>
-    <li><b>Left out.</b> The hand, any bounce after 12 ms, crumbling surfaces (in one recording, powdery concrete made the ping die three to five times faster), the slab's own thickness ringing, rebar, and real delaminations' ragged edges.</li>
+    <li><b>The wall (v2).</b> A simply supported concrete plate, 3.66 × 2.70 m and 200 mm thick, with all 87 bending modes up to 4 kHz, driven by the contact force. Damping is the in-situ loss factor for heavy walls in buildings (EN 12354-1: 0.006 + m″/485√f, mostly energy leaking into the rest of the building), so the body lasts about 0.2 s at 125 Hz and 0.05 s at 2 kHz. It's heard 1 m in front of the tap through the Rayleigh integral over the face. Near a corner the low modes barely move, and the body is about 11 dB weaker. The energy it takes from the blow (0.7% of the hammer's) matches the textbook infinite-plate figure to 0.2 dB.</li>
+    <li><b>Sound.</b> The hammer is an accelerating dipole, radiating as a 2.4 cm sphere, which is exactly a second-order Butterworth lowpass at 3.2 kHz on the small-source formula. The ring's loudness is fitted to the basement recording; v1 had it 20 dB louder. A delamination radiates as a baffled monopole, and the wall's plate as above, all heard from 1 m. <i>Basement</i> is a reverb fitted to that recording: decay 0.85 to 0.9 s up to 4 kHz, read off its taps, at the level that matches its tail. Switch it off for outdoors, where the one outdoor recording shows a click and almost nothing after 20 ms. The strip above shows the sound before the room.</li>
+    <li><b>Left out.</b> The hand and handle, any bounce after 12 ms, crushing at the contact (the Hertz peak pressure is about 1 GPa, which concrete can't take, so the real rebound must be lower), crumbling surfaces, the wall's thickness ringing above about 2 kHz, rebar, and real delaminations' ragged edges. Still off against the recording: above 5 kHz v2 is 5 to 15 dB too dark, and in the first 3 ms there's too much below 250 Hz. Hollow spots are now much louder than solid ones (the peak is 22 dB higher at the middle of a big thin one). In the recording the hollow parging is only 1 to 2 dB louder, but the camera seems to limit every tap at about −5 dBFS, so I can't check that.</li>
     <li><b>Sources.</b> Nebraska DOT, <a href="https://dot.nebraska.gov/media/frlde3ue/m041-final-report.pdf">Automated Chain Drag Testing</a> (resonances and accelerometer traces). Recordings: Thor Matteson, <a href="https://www.youtube.com/watch?v=E2TjXgOvgsU">Testing old concrete with a hammer</a>; Tyler Smith, <a href="https://www.youtube.com/watch?v=_n2zkj_Q8uw">Percussion sounding</a>.</li>
   </ul>
   <p class="small">Sandpiper, October 2026. The wall is one of my concrete renders (plywood forms, 4 × 8 ft, lead-plugged ties), drawn at 3 mm per pixel. Notes and code: projects/knock in my notebook.</p>
@@ -75,6 +78,10 @@
   const CONCRETE = { E: 35e9, rho: 2350, nu: 0.20 }, STEEL = { E: 205e9, nu: 0.29, rho: 7850 };
   const BETA = [4.73004074, 7.85320462, 10.99560784, 14.13716549, 17.27875966, 20.42035225, 23.56194490];
   const HAMMER = [{ f: 4300, m: 0.15, eta: 0.00085, frac: 0.3 }, { f: 9600, m: 0.60, eta: 0.0015, frac: 0.3 }];
+  // v2 (2026-10-26, after "more like a clack than a thonk"): ring radiation fitted to a recording (-20 dB),
+  // head radiates as a 2.4 cm sphere (2nd-order Butterworth at 3.2 kHz), no local monopole, and the wall's
+  // own bending field (wallBody) added.  Pass {v: 1} for the published v1.
+  const FRAC2 = 0.0299;
 
   function beamRaw(m, xi) {
     const b = BETA[m - 1], s = (Math.cosh(b) - Math.cos(b)) / (Math.sinh(b) - Math.sin(b));
@@ -135,8 +142,9 @@
 
   function tap(opt) {
     const kind = opt.kind || 'solid', plate = opt.plate, v0 = opt.v0 ?? 1.5, m_h = opt.m_h ?? 0.45, R = opt.R ?? 0.025;
-    const hammer = (opt.hammer || HAMMER).map(x => Object.assign({}, x));
-    const SR_SIM = 384000, SR = 48000, DEC = 8, T = opt.T ?? 1.0, tC = 0.012, C_s = 2e-11;
+    const v2 = (opt.v ?? 2) === 2;
+    const hammer = (opt.hammer || HAMMER.map(x => v2 ? Object.assign({}, x, { frac: FRAC2 }) : x)).map(x => Object.assign({}, x));
+    const SR_SIM = 384000, SR = 48000, DEC = 8, T = opt.T ?? 1.0, tC = 0.012, C_s = v2 ? 0 : 2e-11;
     const dt = 1 / SR_SIM, kH = hertzK(R), V_h = m_h / STEEL.rho;
     const nC = Math.round(tC * SR_SIM), PAD = 160, nW = nC + PAD;  // simulate contact window + pad (pad is force-free)
     let xh = 0, vh = v0;
@@ -180,23 +188,24 @@
     for (let j = 0; j < nP; j++) { P[j].q = pq[j]; P[j].v = pv[j]; }
     const grad = (x, i) => i === 0 ? (x[1] - x[0]) / dt : i === x.length - 1 ? (x[i] - x[i - 1]) / dt : (x[i + 1] - x[i - 1]) / (2 * dt);
     const kB = 1.5 * RHO0 * V_h / (4 * Math.PI * C0), kW = RHO0 / (2 * Math.PI);
-    const hi = new Float64Array(nW), Fd = new Float64Array(nW);
+    const hiH = new Float64Array(nW), hiW = new Float64Array(nW), Fd = new Float64Array(nW);
     for (let i = 0; i < nW; i++) Fd[i] = grad(F, i);
     for (let i = 0; i < nW; i++) {
-      hi[i] = kB * grad(ah, i) + kB * grad(apS, i) + (kind === 'hollow' ? kW * Qdd[i] : kW * C_s * grad(Fd, i));
+      hiH[i] = kB * grad(ah, i) + kB * grad(apS, i);
+      hiW[i] = kind === 'hollow' ? kW * Qdd[i] : kW * C_s * grad(Fd, i);
     }
-    // decimate the window part
-    const N = Math.round(T * SR), out = new Float32Array(N), nHead = nC / DEC, M = (FIR.length - 1) / 2;
+    // decimate the window part (head and wall kept apart: only the head gets the sphere filter)
+    const N = Math.round(T * SR), outH = new Float64Array(N), outW = new Float64Array(N), nHead = nC / DEC, M = (FIR.length - 1) / 2;
     for (let k = 0; k < nHead; k++) {
-      let s = 0; const c = k * DEC;
-      for (let j = 0; j < FIR.length; j++) { const idx = c + j - M; if (idx >= 0 && idx < nW) s += FIR[j] * hi[idx]; }
-      out[k] = s;
+      let sH = 0, sW = 0; const c = k * DEC;
+      for (let j = 0; j < FIR.length; j++) { const idx = c + j - M; if (idx >= 0 && idx < nW) { sH += FIR[j] * hiH[idx]; sW += FIR[j] * hiW[idx]; } }
+      outH[k] = sH; outW[k] = sW;
     }
     // tail at 48 kHz: free decay of hammer modes (jerk) and plate modes (volume acceleration), from state at end of pad
     // state at time nW*dt; out[k] is at time (8k+1)*dt in the simulation clock
     const Dt = 1 / SR;
     // free decay as a 2x2 linear map per mode; emit(kind) adds the right pressure term
-    function freeRun(o, q, v, k0, gain, jerk) {
+    function freeRun(o, q, v, k0, gain, jerk, out) {
       const lead = (DEC * k0 + 1) * dt - nW * dt; let st = stepper(o.w, o.zeta, lead);
       [q, v] = step(st, q, v, 0);
       st = stepper(o.w, o.zeta, Dt);
@@ -209,13 +218,64 @@
         if ((k & 1023) === 0 && Math.abs(q) * w2 * gain < 1e-9 && Math.abs(v) * o.w * gain < 1e-9) break;
       }
     }
-    for (const hm of H) if (hm.w / (2 * Math.PI) <= 21000) freeRun(hm, hm.q, hm.v, nHead, kB * hm.frac, true);
-    for (const md of P) if (md.V !== 0 && md.w / (2 * Math.PI) <= 21000) freeRun(md, md.q, md.v, nHead, kW * md.V, false);
+    for (const hm of H) if (hm.w / (2 * Math.PI) <= 21000) freeRun(hm, hm.q, hm.v, nHead, kB * hm.frac, true, outH);
+    for (const md of P) if (md.V !== 0 && md.w / (2 * Math.PI) <= 21000) freeRun(md, md.q, md.v, nHead, kW * md.V, false, outW);
+    if (v2) {   // exact rigid-sphere dipole = compact dipole x Butterworth LP at sqrt(2) c / (2 pi a)
+      const aEq = Math.cbrt(3 * V_h / (4 * Math.PI)), f0 = Math.SQRT2 * C0 / (2 * Math.PI * aEq);
+      const w0 = 2 * Math.PI * f0 / SR, cw = Math.cos(w0), al = Math.sin(w0) / (2 * Math.SQRT1_2), a0 = 1 + al;
+      const b0 = (1 - cw) / 2 / a0, b1 = (1 - cw) / a0, b2 = b0, a1 = -2 * cw / a0, a2 = (1 - al) / a0;
+      let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+      for (let k = 0; k < N; k++) { const x0 = outH[k], yk = b0 * x0 + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = x0; y2 = y1; y1 = yk; outH[k] = yk; }
+    }
+    const outB = (v2 && opt.wall) ? wallBody(F, nW, dt, Object.assign({ N }, opt.wall)) : null;
+    const out = new Float32Array(N);
+    for (let k = 0; k < N; k++) out[k] = outH[k] + outW[k] + (outB ? outB[k] : 0);
     const info = { contactMs: firstSep === null ? null : firstSep * 1000, contacts, Fmax: Math.max(...F), rebound: -vh / v0 };
     if (kind === 'hollow') { info.f11 = Math.min(...P.map(m => m.w)) / (2 * Math.PI); info.nModes = P.length; }
     return { y: out, info, sr: SR };
   }
-  const api = { tap, plateModes, HAMMER };
+
+  // The wall itself (v2): a simply supported a x b x h concrete plate driven by the contact force, all modes
+  // to fmax, in-situ loss factor eta = 0.006 + m''/(485 sqrt f) (EN 12354-1), heard at z in front of the tap
+  // point through the Rayleigh integral, each mode at its own frequency.  Port of body.py.
+  function wallBody(F, nF, dt, o) {
+    const a = o.a, b = o.b, h = o.h ?? 0.20, x0 = o.x0, y0 = o.y0, z = o.z ?? 1.0, grid = o.grid ?? 0.03, fmax = o.fmax ?? 4000;
+    const SR = 48000, N = o.N, { E, rho, nu } = CONCRETE;
+    const D = E * h ** 3 / (12 * (1 - nu * nu)), m2 = rho * h, Mm = m2 * a * b, cD = Math.PI ** 2 * Math.sqrt(D / m2);
+    let last = nF - 1; while (last > 0 && F[last] === 0) last--;
+    const nC = last + 1, lead = Math.round(nC * dt * SR);
+    const xs = [], ys = []; for (let x = grid / 2; x < a; x += grid) xs.push(x); for (let y = grid / 2; y < b; y += grid) ys.push(y);
+    const nx = xs.length, ny = ys.length, Rg = new Float64Array(nx * ny);
+    for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) Rg[i * ny + j] = Math.sqrt((xs[i] - x0) ** 2 + (ys[j] - y0) ** 2 + z * z);
+    const out = new Float64Array(N), sx = new Float64Array(nx), sy = new Float64Array(ny);
+    for (let m = 1; cD * (m / a) ** 2 / (2 * Math.PI) <= fmax; m++) {
+      for (let i = 0; i < nx; i++) sx[i] = Math.sin(m * Math.PI * xs[i] / a);
+      for (let n = 1; ; n++) {
+        const w = cD * ((m / a) ** 2 + (n / b) ** 2), f = w / (2 * Math.PI);
+        if (f > fmax) break;
+        const zeta = (0.006 + m2 / (485 * Math.sqrt(f))) / 2, phi0 = 2 * Math.sin(m * Math.PI * x0 / a) * Math.sin(n * Math.PI * y0 / b);
+        const st = stepper(w, zeta, dt); let q = 0, v = 0;
+        for (let k = 0; k < nC; k++) [q, v] = step(st, q, v, phi0 * F[k] / Mm);
+        for (let j = 0; j < ny; j++) sy[j] = Math.sin(n * Math.PI * ys[j] / b);
+        const kk = w / C0; let hr = 0, hiP = 0;
+        for (let i = 0; i < nx; i++) { const si = 2 * sx[i]; if (si === 0) continue;
+          for (let j = 0; j < ny; j++) { const R = Rg[i * ny + j], sh = si * sy[j] / R; hr += sh * Math.cos(kk * R); hiP -= sh * Math.sin(kk * R); } }
+        // H = rho/(2 pi) * j w * sum * grid^2
+        const g = RHO0 / (2 * Math.PI) * w * grid * grid, Hr = -g * hiP, Hi = g * hr;
+        const s = st.s, wd = st.wd, acc0 = -w * w * q - 2 * zeta * w * v, A = v, B = (acc0 + s * v) / wd;
+        // C = H (A - jB); p_k = Re{C e^{(-s + j wd) t}}
+        let cr = Hr * A + Hi * B, ci = Hi * A - Hr * B;
+        const ed = Math.exp(-s / SR), rc = Math.cos(wd / SR) * ed, rs = Math.sin(wd / SR) * ed;
+        for (let k = lead; k < N; k++) {
+          out[k] += cr;
+          const nr = cr * rc - ci * rs; ci = cr * rs + ci * rc; cr = nr;
+          if ((k & 1023) === 0 && Math.abs(cr) + Math.abs(ci) < 1e-9) break;
+        }
+      }
+    }
+    return out;
+  }
+  const api = { tap, plateModes, HAMMER, wallBody };
   if (typeof module !== 'undefined') module.exports = api; else root.Knock = api;
 })(this);
 
@@ -253,28 +313,50 @@
   }
 
   // audio
-  let ac = null, dry, wet, conv, comp, roomOn = true;
+  let ac = null, dry, wet, conv, wet2, conv2, comp, roomOn = true, ver = 2;
   function audio() {
     if (ac) return ac;
     ac = new (window.AudioContext || window.webkitAudioContext)();
     comp = ac.createDynamicsCompressor(); comp.threshold.value = -4; comp.ratio.value = 12; comp.attack.value = 0.001; comp.release.value = 0.15;
     comp.connect(ac.destination);
     dry = ac.createGain(); dry.connect(comp);
-    wet = ac.createGain(); wet.gain.value = roomOn ? 0.22 : 0; wet.connect(comp);
+    wet = ac.createGain(); wet.connect(comp);
     conv = ac.createConvolver();
     const n = Math.floor(ac.sampleRate * 0.7), ir = ac.createBuffer(2, n, ac.sampleRate), rr = mulberry32(7);
     for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); let lp = 0;
       for (let i = 0; i < n; i++) { const t = i / ac.sampleRate; lp = 0.6 * lp + 0.4 * (rr() * 2 - 1);
         d[i] = t < 0.004 ? 0 : lp * Math.exp(-6.91 * t / 0.45); } }
     conv.buffer = ir; conv.connect(wet);
+    // v2 room: octave bands of noise, each decaying at the basement's T60, unit energy (thonk.py room_ir)
+    wet2 = ac.createGain(); wet2.connect(comp); conv2 = ac.createConvolver(); conv2.normalize = false;
+    const sr = ac.sampleRate, n2 = Math.floor(sr * 1.2), ir2 = ac.createBuffer(2, n2, sr);
+    const RF = [125, 250, 500, 1000, 2000, 4000, 8000, 16000], RT = [0.85, 0.85, 0.9, 0.9, 0.9, 0.8, 0.55, 0.3];
+    for (let c = 0; c < 2; c++) {
+      const d = ir2.getChannelData(c), r2 = mulberry32(7 + c), acc = new Float64Array(n2);
+      for (let k = 0; k < RF.length; k++) {
+        const w = 2 * Math.PI * Math.min(RF[k], sr * 0.45) / sr, al = Math.sin(w) / (2 * Math.SQRT2), a0 = 1 + al;
+        const b0 = al / a0, b2 = -al / a0, a1 = -2 * Math.cos(w) / a0, a2 = (1 - al) / a0;
+        let x1 = 0, x2 = 0, y1 = 0, y2 = 0, X1 = 0, X2 = 0, Y1 = 0, Y2 = 0;
+        for (let i = 0; i < n2; i++) {
+          const u = r2() * 2 - 1, y = b0 * u + b2 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = u; y2 = y1; y1 = y;
+          const Y = b0 * y + b2 * X2 - a1 * Y1 - a2 * Y2; X2 = X1; X1 = y; Y2 = Y1; Y1 = Y;
+          acc[i] += Y * Math.exp(-6.91 * (i / sr) / RT[k]);
+        }
+      }
+      let e = 0; for (let i = 0; i < n2; i++) { if (i < 0.004 * sr) acc[i] = 0; e += acc[i] * acc[i]; }
+      const g = 1 / Math.sqrt(e); for (let i = 0; i < n2; i++) d[i] = acc[i] * g;
+    }
+    conv2.buffer = ir2; conv2.connect(wet2);
+    setRoom();
     return ac;
   }
-  const GAIN = 0.02;   // Pa at 1 m -> full scale; the loudest drums go through the limiter
+  function setRoom() { if (!ac) return; wet.gain.value = (roomOn && ver === 1) ? 0.22 : 0; wet2.gain.value = (roomOn && ver === 2) ? 1.03 : 0; }
+  const GAIN = 0.05;   // Pa at 1 m -> full scale, same for v1 and v2; the loudest drums go through the limiter
   function play(y, sr) {
     const ctx = audio(); if (ctx.state === 'suspended') ctx.resume();
     const buf = ctx.createBuffer(1, y.length, sr), d = buf.getChannelData(0);
     for (let i = 0; i < y.length; i++) d[i] = y[i] * GAIN;
-    const src = ctx.createBufferSource(); src.buffer = buf; src.connect(dry); src.connect(conv); src.start();
+    const src = ctx.createBufferSource(); src.buffer = buf; src.connect(dry); src.connect(conv); src.connect(conv2); src.start();
   }
 
   // spectrogram
@@ -348,17 +430,21 @@
     if (chalkMode || ev.shiftKey) { chalk.push({ x: px, y: py }); draw(); return; }
     const xm = px * MM, ym = py * MM, d = delams.find(d => xm > d.x && xm < d.x + d.a && ym > d.y && ym < d.y + d.b);
     const v0 = 1.5 * (0.9 + 0.2 * Math.random());
-    const res = d ? Knock.tap({ kind: 'hollow', v0, plate: { a: d.a / 1000, b: d.b / 1000, h: d.h / 1000, x0: (xm - d.x) / 1000, y0: (ym - d.y) / 1000 } })
-                  : Knock.tap({ kind: 'solid', v0 });
+    const wall = { a: W * MM / 1000, b: Hh * MM / 1000, x0: xm / 1000, y0: ym / 1000 };
+    const res = d ? Knock.tap({ kind: 'hollow', v0, v: ver, wall, plate: { a: d.a / 1000, b: d.b / 1000, h: d.h / 1000, x0: (xm - d.x) / 1000, y0: (ym - d.y) / 1000 } })
+                  : Knock.tap({ kind: 'solid', v0, v: ver, wall });
     play(res.y, res.sr);
     rings.push({ x: px, y: py, t: performance.now() }); draw();
     drawSpec(res.y, res.sr);
-    document.getElementById('specnote').textContent = 'The bright line that runs the full width is the hammer ringing. Anything below 3 kHz that lasts is a loose layer.';
+    document.getElementById('specnote').textContent = ver === 1
+      ? 'v1. The bright line that runs the full width is the hammer ringing, which was far too loud. Anything below 3 kHz that lasts is a loose layer.'
+      : 'The fan at the lower left is the wall itself: its bending waves die fastest at the top, so it narrows to the low end within a tenth of a second. The line at 4.3 kHz is the hammer ringing. It looks bright because the strip spans 75 dB, but it is now about 20 dB quieter than in v1. A loose layer adds a strong band between about 0.7 and 3 kHz.';
   });
   document.getElementById('bNew').onclick = () => { seed = Math.floor(Math.random() * 1e6); layout(); };
   document.getElementById('bChalk').onclick = () => { chalkMode = !chalkMode; setBtn('bChalk', chalkMode); wallEl.classList.toggle('chalk', chalkMode); };
   document.getElementById('bReveal').onclick = () => { revealed = !revealed; setBtn('bReveal', revealed); draw(); };
-  document.getElementById('bRoom').onclick = () => { roomOn = !roomOn; setBtn('bRoom', roomOn); if (wet) wet.gain.value = roomOn ? 0.22 : 0; };
+  document.getElementById('bRoom').onclick = () => { roomOn = !roomOn; setBtn('bRoom', roomOn); setRoom(); };
+  document.getElementById('bVer').onclick = () => { ver = ver === 2 ? 1 : 2; setBtn('bVer', ver === 1); setRoom(); };
   layout();
 })();
 </script>

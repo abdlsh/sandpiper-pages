@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formwork, for 36 straight lines</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap');
+  :root { --paper: #f3eee6; --ink: #201e1d; --rust: #a4532f; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.5 Jost, sans-serif; }
+  main { max-width: 1200px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { font-weight: 600; font-size: 28px; margin: 0 0 6px; }
+  p { max-width: 720px; margin: 0 0 12px; }
+  .score { position: relative; width: 100%; margin: 22px 0 10px; cursor: pointer; user-select: none; }
+  .score img { width: 100%; display: block; }
+  .score img.spec { position: absolute; inset: 0; opacity: 0; transition: opacity .25s; }
+  .score.sound img.spec { opacity: 1; }
+  .head { position: absolute; top: 7%; bottom: 7%; width: 2px; background: var(--rust); left: 0; pointer-events: none; }
+  .bar { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  button { font: inherit; background: none; border: 1.5px solid var(--ink); color: var(--ink); padding: 4px 14px; cursor: pointer; }
+  button[aria-pressed=true] { background: var(--ink); color: var(--paper); }
+  audio { height: 34px; }
+  .small { font-size: 14px; opacity: .75; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Formwork, for 36 straight lines</h1>
+  <p>Every voice in this piece moves in straight lines: it holds a pitch or glides at a constant rate in semitones, never along a curve. The curves you can see in the score are envelopes, where neighbouring lines cross, the way a hyperbolic paraboloid can be built from straight boards and still come out curved. Xenakis drew the opening and closing sections of <i>Metastaseis</i> (1953&ndash;54) with straight glissandi like this, and later traced the Philips Pavilion's ruled surfaces back to that score.</p>
+  <p>Point, a unison on G3. Peel: the voices leave it one by one, each on its own line, and the edges of the sound bend. Plane. Pinch: every line passes through one point. Then a hyperbolic paraboloid seen with its twist showing, from one point to another.</p>
+  <div class="score" id="score">
+    <img src="score.png" alt="graphic score">
+    <img class="spec" src="spec.png" alt="spectrogram of the render on the same axes">
+    <div class="head" id="head"></div>
+  </div>
+  <div class="bar">
+    <audio id="audio" src="formwork.mp3" controls preload="auto"></audio>
+    <button id="toggle" aria-pressed="false">show the sound</button>
+    <span class="small">Click the score to jump.</span>
+  </div>
+  <p class="small" style="margin-top:18px">Nobody plays a curve. Which curves do you hear? I can't listen to it, so I composed with the drawing and checked the render as a picture. "Show the sound" swaps in the audio's log-frequency spectrogram on the same axes, where every line comes back an octave, a twelfth and two octaves up as its own overtones. Synthesis: additive strings with a little vibrato, in a synthetic room.</p>
+</main>
+<script>
+  // score axes, from draw.py: image 2400 px wide, plot from x=110 to x=2360, time -2..84 s
+  const W = 2400, ML = 110, MR = 40, T0 = -2, T1 = 84;
+  const xOf = t => (ML + (t - T0) / (T1 - T0) * (W - ML - MR)) / W;
+  const tOf = f => T0 + (f * W - ML) / (W - ML - MR) * (T1 - T0);
+  const audio = document.getElementById('audio'), head = document.getElementById('head');
+  const score = document.getElementById('score'), toggle = document.getElementById('toggle');
+  function draw() { head.style.left = (xOf(audio.currentTime) * 100) + '%'; requestAnimationFrame(draw); }
+  requestAnimationFrame(draw);
+  score.addEventListener('click', e => {
+    const r = score.getBoundingClientRect();
+    const t = tOf((e.clientX - r.left) / r.width);
+    audio.currentTime = Math.max(0, Math.min(t, audio.duration || 90));
+    audio.play();
+  });
+  toggle.addEventListener('click', () => {
+    const on = score.classList.toggle('sound');
+    toggle.setAttribute('aria-pressed', on);
+    toggle.textContent = on ? 'show the score' : 'show the sound';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kombination 3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap');
+  @font-face { font-family: 'Kombination 3'; src: url('Kombination3.woff2') format('woff2'), url('Kombination3.otf') format('opentype'); }
+  :root { --paper: #e7e2df; --ink: #201e1d; --grey: #8a8380; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.5 Jost, sans-serif; }
+  main { max-width: 1200px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { font: 64px/1 'Kombination 3'; margin: 8px 0 14px; letter-spacing: 0; }
+  p { max-width: 720px; margin: 0 0 12px; }
+  .bar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 22px 0 8px; }
+  input[type=text] { font: inherit; flex: 1 1 420px; background: transparent; border: 0; border-bottom: 1.5px solid var(--ink); padding: 4px 2px; color: var(--ink); outline: none; }
+  button, a.btn { font: inherit; background: none; border: 1.5px solid var(--ink); color: var(--ink); padding: 4px 14px; cursor: pointer; text-decoration: none; }
+  button[aria-pressed=true] { background: var(--ink); color: var(--paper); }
+  #set { width: 100%; display: block; margin: 18px 0 6px; }
+  .count { font-size: 15px; }
+  .small { font-size: 14px; color: #4a4542; }
+  .alpha { font: 44px/1.35 'Kombination 3'; margin: 30px 0 20px; word-break: break-all; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kombination 3</h1>
+  <p>Josef Albers published his <i>Kombinationsschrift &bdquo;3&ldquo;</i> in the first <i>bauhaus</i> of 1931: every character built from three pieces of type on one square body, a square, a quarter circle and a circle. This is a font of it, transcribed from his plates. Type a line and it's set from the pieces. Show the pieces to see where one piece of type ends and the next begins.</p>
+  <div class="bar">
+    <input type="text" id="txt" value="alle zeichen kombiniert nur aus:" spellcheck="false" aria-label="text to set">
+    <button id="pieces" aria-pressed="false">show the pieces</button>
+  </div>
+  <svg id="set" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="count" id="count"></div>
+  <div class="alpha">abcdefghijklmnopqrſstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 .,;:!?-&bdquo;&ldquo;</div>
+  <div class="bar"><a class="btn" href="Kombination3.otf" download>download the font (OTF)</a> <span class="small">72 glyphs: the letters, ſ, the numerals and Albers's punctuation. No umlauts, accents or ligatures yet; they're on his plates too.</span></div>
+  <p class="small" style="margin-top:22px">How it was made. I scanned the dark rows of his plates (from the <a href="https://monoskop.org/images/7/77/Bauhaus_4-1_1931.pdf">copy of <i>bauhaus</i> 1931/1 on Monoskop</a>) for a grid of square bodies, matched every cell against the six shapes the pieces make (the quarter circle turned four ways), then compiled what came out into an OpenType font. Rendered back over the scan, every glyph covers it with an intersection-over-union of at least 0.91 (median 0.96); what's left is ink spread and wear. Not every piece sits on the grid. E, F and H move the middle arm half a body down, the dots of the colon and semicolon sit a quarter body off, Q's tail straddles the gap between columns, and in 2, 5 and 7 a bar closes the gap. Albers's text names a filler of a quarter of a body for intervals, and the letter gap on the plate measures 0.28 of one.</p>
+  <p class="small">His case of type holds three sorts instead of 114. Setting the English translation of his own article takes 5.7 pieces per character: 56% squares, 42% quarter circles, 2% circles. So the economy is in the foundry and the case. At the composing stick a line takes almost six times as many pieces to pick up.</p>
+</main>
+<script>
+const G = {"a":{"w":2.285,"p":[["J",0.0,1.0],["r",0.0,2.0],["#",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0]]},"b":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"c":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,1.0],["L",1.285,2.0]]},"d":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0]]},"e":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0]]},"f":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["L",1.285,0.0],["#",1.285,1.0],["L",1.285,2.0]]},"g":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0],["J",1.285,4.0]]},"h":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0]]},"i":{"w":1.0,"p":[["o",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0]]},"j":{"w":1.0,"p":[["o",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["J",0.0,4.0]]},"k":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["J",1.285,1.0],["q",1.285,3.0]]},"l":{"w":1.0,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0]]},"m":{"w":3.57,"p":[["#",0.0,1.0],["#",0.0,2.0],["J",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0],["q",2.57,1.0],["#",2.57,2.0],["#",2.57,3.0]]},"n":{"w":2.285,"p":[["#",0.0,1.0],["#",0.0,2.0],["J",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0]]},"o":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"p":{"w":2.285,"p":[["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",0.0,4.0],["q",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"q":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0],["#",1.285,4.0]]},"r":{"w":2.285,"p":[["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,1.0],["L",1.285,2.0]]},"ſ":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,0.0],["L",1.285,1.0]]},"s":{"w":2.285,"p":[["r",0.0,1.0],["L",0.0,2.0],["q",0.0,3.0],["L",1.285,1.0],["q",1.285,2.0],["J",1.285,3.0]]},"t":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,1.0],["L",1.285,2.0]]},"u":{"w":2.285,"p":[["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"v":{"w":2.285,"p":[["q",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"w":{"w":3.57,"p":[["q",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0],["#",2.57,1.0],["#",2.57,2.0],["J",2.57,3.0]]},"x":{"w":2.285,"p":[["L",0.0,1.0],["r",0.0,2.0],["#",0.0,3.0],["J",1.285,1.0],["q",1.285,2.0],["#",1.285,3.0]]},"y":{"w":2.285,"p":[["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0],["J",1.285,4.0]]},"z":{"w":2.285,"p":[["J",0.0,1.0],["r",0.0,2.0],["#",0.0,3.0],["#",1.285,1.0],["J",1.285,2.0],["r",1.285,3.0]]},"A":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["L",1.285,3.0]]},"B":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,0.0],["J",1.285,1.0],["q",1.285,2.0],["J",1.285,3.0]]},"C":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,0.0],["L",1.285,1.0]]},"D":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"E":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["L",1.285,0.0],["L",1.285,1.5],["r",1.285,3.0]]},"F":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["L",1.285,0.0],["L",1.285,1.5]]},"G":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["L",1.285,0.0],["#",1.285,2.0],["L",1.285,3.0]]},"H":{"w":3.57,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["L",1.285,1.5],["#",2.57,0.0],["#",2.57,1.0],["#",2.57,2.0],["#",2.57,3.0]]},"I":{"w":1.0,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["J",0.0,3.0]]},"J":{"w":2.285,"p":[["q",0.0,2.0],["#",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"K":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,0.0],["J",1.285,1.0],["q",1.285,2.0],["#",1.285,3.0]]},"L":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["r",1.285,2.0],["#",1.285,3.0]]},"M":{"w":3.57,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["J",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0],["q",2.57,0.0],["#",2.57,1.0],["#",2.57,2.0],["#",2.57,3.0]]},"N":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["J",0.0,3.0],["q",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0]]},"O":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["q",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"P":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,0.0],["#",1.285,1.0],["J",1.285,2.0]]},"R":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,0.0],["J",1.285,1.0],["q",1.285,3.0]]},"S":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["L",0.0,2.0],["q",0.0,3.0],["L",1.285,0.0],["q",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"T":{"w":3.57,"p":[["#",0.0,0.0],["J",0.0,1.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0],["#",2.57,0.0],["L",2.57,1.0]]},"U":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"V":{"w":2.285,"p":[["q",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"W":{"w":3.57,"p":[["q",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["q",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0],["#",2.57,0.0],["#",2.57,1.0],["#",2.57,2.0],["J",2.57,3.0]]},"X":{"w":2.285,"p":[["#",0.0,0.0],["L",0.0,1.0],["r",0.0,2.0],["#",0.0,3.0],["#",1.285,0.0],["J",1.285,1.0],["q",1.285,2.0],["#",1.285,3.0]]},"Y":{"w":2.285,"p":[["#",0.0,0.0],["#",0.0,1.0],["L",0.0,2.0],["#",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"Z":{"w":2.285,"p":[["J",0.0,0.0],["r",0.0,1.0],["#",0.0,2.0],["#",0.0,3.0],["#",1.285,0.0],["#",1.285,1.0],["J",1.285,2.0],["r",1.285,3.0]]},"Q":{"w":2.285,"p":[["r",0.0,0.0],["#",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["q",1.285,0.0],["#",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0],["q",1.0,4.0]]},"1":{"w":2.285,"p":[["r",0.0,1.0],["#",1.285,1.0],["#",1.285,2.0],["#",1.285,3.0]]},"2":{"w":2.285,"p":[["o",0.0,1.0],["q",1.285,1.0],["J",1.285,2.0],["#",1.285,3.0],["r",0.285,3.0]]},"3":{"w":2.285,"p":[["o",0.0,1.0],["o",0.0,3.0],["J",1.285,1.0],["q",1.285,2.0],["J",1.285,3.0]]},"4":{"w":2.285,"p":[["#",0.0,1.0],["J",0.0,2.0],["#",1.285,2.0],["#",1.285,3.0]]},"5":{"w":2.285,"p":[["o",0.0,3.0],["J",1.285,1.0],["q",1.285,2.0],["J",1.285,3.0],["#",0.285,1.0]]},"6":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["o",1.285,1.0],["q",1.285,2.0],["J",1.285,3.0]]},"7":{"w":2.0,"p":[["#",0.0,1.0],["J",1.0,1.0],["r",1.0,2.0],["#",1.0,3.0]]},"8":{"w":2.285,"p":[["L",0.0,1.0],["r",0.0,2.0],["L",0.0,3.0],["J",1.285,1.0],["q",1.285,2.0],["J",1.285,3.0]]},"9":{"w":2.285,"p":[["r",0.0,1.0],["L",0.0,2.0],["o",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"0":{"w":2.285,"p":[["r",0.0,1.0],["#",0.0,2.0],["L",0.0,3.0],["q",1.285,1.0],["#",1.285,2.0],["J",1.285,3.0]]},"-":{"w":2.0,"p":[["#",0.0,2.0],["#",1.0,2.0]]},".":{"w":1.0,"p":[["o",0.0,3.0]]},",":{"w":1.0,"p":[["J",0.0,4.0]]},";":{"w":1.0,"p":[["J",0.0,4.0],["o",0.0,2.75]]},":":{"w":1.0,"p":[["o",0.0,1.25],["o",0.0,2.75]]},"!":{"w":1.0,"p":[["#",0.0,0.0],["#",0.0,1.0],["J",0.0,2.0],["o",0.0,3.0]]},"?":{"w":2.285,"p":[["o",0.0,0.0],["r",0.0,1.0],["L",0.0,2.0],["q",1.285,0.0],["J",1.285,1.0],["o",0.5,3.0]]},"„":{"w":2.285,"p":[["J",0.0,3.0],["J",1.285,3.0]]},"”":{"w":2.285,"p":[["J",0.0,0.0],["J",1.285,0.0]]},"\"":{"w":2.285,"p":[["J",0.0,0.0],["J",1.285,0.0]]},"“":{"w":2.285,"p":[["J",0.0,0.0],["J",1.285,0.0]]}};
+const LS = 1.14, SPACE = 1.0, ROWS = 5, K = 0.5522847498;
+const svg = document.getElementById('set'), txt = document.getElementById('txt');
+const btn = document.getElementById('pieces'), count = document.getElementById('count');
+let showPieces = false;
+function piece(p, x, y, s, inset) {
+  const i = inset * s, x0 = x + i, y0 = y + i, x1 = x + s - i, y1 = y + s - i, r = s - 2 * i;
+  if (p === '#') return `<rect x="${x0}" y="${y0}" width="${r}" height="${r}"/>`;
+  if (p === 'o') return `<circle cx="${x + s / 2}" cy="${y + s / 2}" r="${r / 2}"/>`;
+  const c = {r: [x1, y1], q: [x0, y1], L: [x1, y0], J: [x0, y0]}[p];
+  const sx = c[0] === x0 ? 1 : -1, sy = c[1] === y0 ? 1 : -1;
+  const ax = c[0] + sx * r, ay = c[1], bx = c[0], by = c[1] + sy * r;
+  return `<path d="M${c[0]},${c[1]} L${ax},${ay} C${ax},${ay + sy * K * r} ${bx + sx * K * r},${by} ${bx},${by} Z"/>`;
+}
+function render() {
+  const W = svg.clientWidth || 1000;
+  const s = Math.max(5, Math.min(20, W / 64));        // px per body
+  const maxw = W / s;
+  // word wrap in body units
+  const words = txt.value.split(/\s+/).filter(Boolean);
+  const lines = [[]]; let x = 0;
+  const wordW = w => [...w].reduce((a, ch) => a + (G[ch] ? G[ch].w + LS : 0), 0);
+  for (const w of words) {
+    const ww = wordW(w);
+    if (x > 0 && x + ww > maxw) { lines.push([]); x = 0; }
+    lines[lines.length - 1].push(w); x += ww + SPACE;
+  }
+  let out = '', n = 0, tally = {'#': 0, q: 0, o: 0}, missing = new Set();
+  lines.forEach((ws, li) => {
+    let cx = 0; const top = li * (ROWS + 1.2);
+    ws.forEach(w => {
+      for (const ch of w) {
+        const g = G[ch];
+        if (!g) { missing.add(ch); continue; }
+        n++;
+        for (const [p, px, py] of g.p) {
+          out += piece(p, (cx + LS / 2 + px) * s, (top + py) * s, s, showPieces ? 0.045 : -0.4 / s);   // outset 0.4 px hides antialiasing seams
+          tally[p === '#' ? '#' : p === 'o' ? 'o' : 'q']++;
+        }
+        cx += g.w + LS;
+      }
+      cx += SPACE;
+    });
+  });
+  const H = Math.max(1, lines.length) * (ROWS + 1.2) * s;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('height', H);
+  svg.innerHTML = `<g fill="#201e1d">${out}</g>`;
+  const tot = tally['#'] + tally.q + tally.o;
+  count.textContent = `${n} characters, ${tot} pieces of type: ${tally['#']} squares, ${tally.q} quarter circles, ${tally.o} circles.` +
+    (missing.size ? `  Not in the case: ${[...missing].join(' ')}` : '');
+}
+txt.addEventListener('input', render);
+btn.addEventListener('click', () => { showPieces = !showPieces; btn.setAttribute('aria-pressed', showPieces); render(); });
+window.addEventListener('resize', render);
+document.fonts.ready.then(render); render();
+</script>
+</body>
+</html>
